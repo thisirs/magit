@@ -6091,7 +6091,7 @@ The name of the change log file is set by variable change-log-default-name."
 
 (eval-after-load 'dired-x
   '(defun magit-dired-jump (&optional other-window)
-    "Visit current item.
+    "Visit current item. Otherwise visit `default-directory'.
 With a prefix argument, visit in other window."
     (interactive "P")
     (require 'dired-x)
@@ -6108,7 +6108,8 @@ With a prefix argument, visit in other window."
       ((hunk)
        (dired-jump other-window
                    (file-truename (magit-diff-item-file
-                                   (magit-hunk-item-diff item))))))))
+                                   (magit-hunk-item-diff item)))))
+      (t (dired-jump other-window)))))
 
 (defun magit-visit-file-item (&optional other-window)
   "Visit current file associated with item.
